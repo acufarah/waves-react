@@ -65,7 +65,20 @@ app.post('/api/users/login',(req,res)=>{
     })
 })
 
+app.get('/api/users/logout',auth,(req,res)=>{
+    
+    User.findOneAndUpdate(
 
+        { _id: req.user._id},
+        { token: ''},
+        (err, doc)=>{
+            if(err) return res.json({ success:false,err});
+            res.status(200).json({
+                success:true
+            })
+        }
+    )
+})
 
 const port = process.env.PORT || 3002;
 
