@@ -27,6 +27,11 @@ const userSchema = new Schema({
         required: true,
         maxlength: 100
     },
+    role:{
+        type: Number,
+        required: true,
+        maxlength: 1
+    },
     cart:{
         type: Array,
         default: []
@@ -90,5 +95,7 @@ userSchema.statics.findByToken = function(token,cb){
 }
 
 const User = mongoose.model('User', userSchema);
+
+
 
 module.exports= {User};
