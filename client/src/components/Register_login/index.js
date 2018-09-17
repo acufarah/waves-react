@@ -1,4 +1,5 @@
 import React from 'react';
+import MyButton from '../utils/button';
 
 const RegisterLogin = () =>{
     return(
@@ -13,9 +14,19 @@ const RegisterLogin = () =>{
                         pabst deserunt listicle dreamcatcher. Occaecat offal drinking vinegar cupidatat.
                         Blue bottle celiac aliqua, taxidermy microdosing offal tempor scenester vape vinyl fashion axe. 
                         </p>
+                        <MyButton
+                            type="default"
+                            title="Create an Account"
+                            linkTo="/register"
+                            addStyles={{
+                                margin: '10px 0 0 0'
+                            }}
+                        />
                     </div>
                     <div className="right">
-
+                        <h2>Registered Customers</h2>
+                        <p>If you have an account, please login.</p>
+                        LOGIN
                     </div>
                 </div>
             </div>
