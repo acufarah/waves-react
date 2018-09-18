@@ -54,31 +54,30 @@ class Login extends Component{
         })
     }
 
-    submitForm= (event)=>{
+    submitForm=(event)=>{
         event.preventDefault();
 
-        let dataToSubmit = generateData(this.state.formdata,'login');
-        let formIsValid = isFormValid(this.state.formdata,'login');
+        let dataToSubmit= generateData(this.state.formdata,'login');
+        let formIsValid= isFormValid(this.state.formdata,'login');
 
         if(formIsValid){
-             this.props.dispatch(loginUser(dataToSubmit)).then(response =>{
-                 if(response.payload.loginSuccess){
+            this.props.dispatch(loginUser(dataToSubmit)).then(response =>{
+                if(response.payload.loginSuccess){
                     console.log(response.payload);
                     this.props.history.push('/user/dashboard')
-                 }
-                 else{
+                }
+                else{
                     this.setState({
                         formError: true
                     })
-                 }
-             });
-        }
-        else{
+                }
+            });
+        }else{
             this.setState({
                 formError: true
             })
         }
-       
+
     }
 
     render(){
