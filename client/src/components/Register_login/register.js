@@ -2,14 +2,15 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import FormField from '../utils/Form/formfield';
 import { update, generateData, isFormValid } from '../utils/Form/formActions';
-import { loginUser } from '../../actions/user_actions';
+import { registerUser } from '../../actions/user_actions';
 import { withRouter } from 'react-router-dom';
+import Dialog from '@material-ui/core/Dialog';
 
 class Register extends Component{
 
     state = {
         formError: false,
-        formSuccess: '',
+        formSuccess: false,
         formdata:{
             name:{
                 element: 'input',
@@ -103,6 +104,33 @@ updateForm= (element)=>{
         formdata: newFormdata
     })
 }
+
+// submitForm=(event)=>{
+//     event.preventDefault();
+
+//     let dataToSubmit= generateData(this.state.formdata,'register');
+//     let formIsValid= isFormValid(this.state.formdata,'register');
+
+//     if(formIsValid){
+//         console.log(this.props);
+//         this.props.dispatch(registerUser(dataToSubmit)).then(response =>{
+//             if(response.payload.registerSuccess){
+//                 console.log(response.payload);
+//                 this.props.history.push('/register_login')
+//             }
+//             else{
+//                 this.setState({
+//                     formError: true
+//                 })
+//             }
+//         });
+//     }else{
+//         this.setState({
+//             formError: true
+//         })
+//     }
+
+// }
 submitForm=(event)=>{
     event.preventDefault();
 
@@ -110,17 +138,28 @@ submitForm=(event)=>{
     let formIsValid= isFormValid(this.state.formdata,'register');
 
     if(formIsValid){
-        this.props.dispatch(loginUser(dataToSubmit)).then(response =>{
-            if(response.payload.loginSuccess){
+        console.log(dataToSubmit);
+        this.props.dispatch(registerUser(dataToSubmit)).then(response =>{
+            if(response.payload.registerSuccess){
                 console.log(response.payload);
-                this.props.history.push('/user/dashboard')
+                this.setState({
+                    formError: false,
+                    formSuccess: true
+                });
+                setTimeout(()=>{
+                    this.props.history.push('/register_login');
+                }, 3000)
             }
             else{
                 this.setState({
                     formError: true
                 })
             }
-        });
+        }).catch(e=>{
+                this.setState({
+                    formError: true
+                })
+        })
     }else{
         this.setState({
             formError: true
@@ -190,6 +229,12 @@ submitForm=(event)=>{
                         </div>
                     </div>
                 </div>
+                    <Dialog open={this.state.formSuccess}>
+                        <div>
+                         You will be redirected to the LOGIN in a couple of seconds...
+                        </div>
+                
+                    </Dialog>
             </div>
         );
     }

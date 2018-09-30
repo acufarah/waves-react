@@ -29,7 +29,7 @@ const userSchema = new Schema({
     },
     role:{
         type: Number,
-        required: true,
+        required: false,
         maxlength: 1
     },
     cart:{
