@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 const MyButton = (props)=>{
 
@@ -31,4 +33,4 @@ const MyButton = (props)=>{
     )
 }
 
-export default MyButton;
+export default connect()(withRouter(MyButton));
